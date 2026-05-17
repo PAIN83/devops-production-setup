@@ -1,6 +1,7 @@
 provider "aws" {
   region = var.region
 }
+
 resource "aws_vpc" "main" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
@@ -10,6 +11,7 @@ resource "aws_vpc" "main" {
     Project = var.project_name
   }
 }
+
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.1.0/24"
@@ -21,6 +23,7 @@ resource "aws_subnet" "public" {
     Project = var.project_name
   }
 }
+
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
@@ -29,6 +32,7 @@ resource "aws_internet_gateway" "igw" {
     Project = var.project_name
   }
 }
+
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
 
@@ -42,10 +46,12 @@ resource "aws_route_table" "public" {
     Project = var.project_name
   }
 }
+
 resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public.id
   route_table_id = aws_route_table.public.id
 }
+
 resource "aws_security_group" "web" {
   name        = "${var.project_name}-sg"
   description = "Allow HTTP and SSH traffic"
@@ -77,6 +83,7 @@ resource "aws_security_group" "web" {
     Project = var.project_name
   }
 }
+
 resource "aws_instance" "web" {
   ami                    = "ami-090eaa8ecb757149c"
   instance_type          = var.instance_type
@@ -92,6 +99,10 @@ resource "aws_instance" "web" {
     systemctl enable nginx
     echo "<h1>DevOps Project 1 — Deployed with Terraform</h1>" \
       > /usr/share/nginx/html/index.html
+    yum install -y docker
+    systemctl start docker
+    systemctl enable docker
+    usermod -aG docker ec2-user
   EOF
 
   tags = {
@@ -99,3 +110,4 @@ resource "aws_instance" "web" {
     Project = var.project_name
   }
 }
+
