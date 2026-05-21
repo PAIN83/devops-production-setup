@@ -103,6 +103,7 @@ resource "aws_instance" "web" {
     systemctl start docker
     systemctl enable docker
     usermod -aG docker ec2-user
+    yum install -y git
   EOF
 
   tags = {
