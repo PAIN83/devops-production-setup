@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - '02-cicd-pipeline/**'
 
 jobs:
   deploy:
