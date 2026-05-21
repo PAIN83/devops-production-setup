@@ -7,6 +7,7 @@ def home():
     return """
     <h1>DevOps Project 2</h1>
     <p>Deployed automatically via GitHub Actions CI/CD Pipeline</p>
+    <p>Version 2 — Pipeline is working!</p>
     """
 
 @app.route("/health")
