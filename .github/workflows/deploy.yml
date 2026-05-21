@@ -1,5 +1,3 @@
-name: Deploy to EC2
-
 on:
   push:
     branches:
@@ -22,6 +20,7 @@ jobs:
           script: |
             cd /home/ec2-user/app
             git pull origin master
+            cd 02-cicd-pipeline
             docker build -t devops-app .
             docker stop devops-app-container || true
             docker rm devops-app-container || true
