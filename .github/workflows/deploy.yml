@@ -17,7 +17,8 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
+          script:
+ |          sudo systemctl stop nginx
             cd /home/ec2-user/app
             git pull origin master
             cd 02-cicd-pipeline
