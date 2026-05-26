@@ -7,8 +7,7 @@ Before this project, deploying an update meant:
   3. Restart the app
   4. Hope nothing breaks
 
-That is how nobody should work in 2024. This project automates
-all of that — you push code to GitHub and the server updates
+ This project automates all of that — you push code to GitHub and the server updates
 itself. No SSH, no manual steps, no human error.
 
 ## How it works (simple explanation)
